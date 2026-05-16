@@ -4,12 +4,15 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import java.time.LocalDate
 
 @Entity
 class Book(
-    var title: String = "",
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long? = null,
+    var title: String = "",
+    var author: String = "",
+    var publishedDate: LocalDate? = null
+
 )
