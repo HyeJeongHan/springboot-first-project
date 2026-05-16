@@ -1,0 +1,58 @@
+package com.example.onehourproject
+
+import com.example.onehourproject.book.Book
+import com.example.onehourproject.book.BookRepository
+import com.example.onehourproject.book.BookService
+import com.example.onehourproject.book.exception.NotFoundException
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+
+class BookServiceTest {
+    private lateinit var bookService: BookService
+
+    @BeforeEach
+    fun setUp() {
+        val bookRepository = mock(BookRepository::class.java)
+        bookService = BookService(bookRepository)
+    }
+
+    @Test
+    fun 책을_생성한다() {
+        val book = Book(title = "테스트 책")
+
+        val saved = bookService.createBook(book)
+
+        assertThat(saved.id).isNotNull()
+        assertThat(saved.title).isEqualTo("테스트 책")
+        assertThat(bookService.getBooks()).hasSize(1)
+    }
+
+    @Test
+    fun 책을_수정한다() {
+        bookService.createBook(Book(title = "테스트 책"))
+
+        val updated = bookService.updateBook(1L, Book(title = "수정된 책"))
+
+        assertThat(updated?.title).isEqualTo("수정된 책")
+    }
+
+    @Test
+    fun 책을_삭제한다() {
+        bookService.createBook(Book(title = "삭제할 책"))
+
+        val deleted = bookService.deleteBook(1L)
+
+        assertThat(deleted).isTrue()
+        assertThat(bookService.getBooks()).isEmpty()
+    }
+
+    @Test
+    fun 책을_조회한다() {
+        assertThatThrownBy { bookService.getBookById(11L) }
+            .isInstanceOf(NotFoundException::class.java)
+            .hasMessage("도서를 찾을 수 없습니다.")
+    }
+}
