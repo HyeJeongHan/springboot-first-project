@@ -1,7 +1,7 @@
 package com.example.onehourproject
 
-import com.example.onehourproject.book.Book
-import com.example.onehourproject.book.BookRepository
+import com.example.onehourproject.book.entitis.Book
+import com.example.onehourproject.book.repositories.BookRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -18,7 +18,8 @@ class OneHourProjectApplication {
             Book(
                 title = "Spring Boot 시작하기",
                 author = "hong",
-                publishedDate = LocalDate.of(2025, 1, 2))
+                publishedDate = LocalDate.of(2025, 1, 2)
+            )
         )
         bookRepository.save(
             Book(

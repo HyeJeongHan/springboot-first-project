@@ -1,9 +1,9 @@
 package com.example.onehourproject
 
 import com.example.onehourproject.book.BookController
-import com.example.onehourproject.book.BookRepository
 import com.example.onehourproject.book.BookRequest
-import com.example.onehourproject.book.BookService
+import com.example.onehourproject.book.repositories.BookRepository
+import com.example.onehourproject.book.service.BookService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
