@@ -1,4 +1,4 @@
-package com.example.onehourproject.book
+package com.example.onehourproject.book.dto
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull

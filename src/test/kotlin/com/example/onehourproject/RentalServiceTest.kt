@@ -1,5 +1,6 @@
 package com.example.onehourproject
 
+import com.example.onehourproject.book.dto.RentalRequest
 import com.example.onehourproject.book.entitis.Book
 import com.example.onehourproject.book.entitis.Members
 import com.example.onehourproject.book.entitis.Rental
@@ -35,10 +36,11 @@ internal class RentalServiceTest {
 
         rentalRepository.save(Rental(members = member, book = book))
 
+
         assertThatThrownBy({
             book.id?.let { it ->
                 member.id?.let { it1 ->
-                    service.rentBook(it, it1)
+                    service.rentBook(RentalRequest(it1, it))
                 }
             }
         })

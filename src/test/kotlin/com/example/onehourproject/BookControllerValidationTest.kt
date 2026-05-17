@@ -1,7 +1,7 @@
 package com.example.onehourproject
 
-import com.example.onehourproject.book.BookController
-import com.example.onehourproject.book.BookRequest
+import com.example.onehourproject.book.controller.BookController
+import com.example.onehourproject.book.dto.BookRequest
 import com.example.onehourproject.book.repositories.BookRepository
 import com.example.onehourproject.book.service.BookService
 import com.fasterxml.jackson.databind.ObjectMapper

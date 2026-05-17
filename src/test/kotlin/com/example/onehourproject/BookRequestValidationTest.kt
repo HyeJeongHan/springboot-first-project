@@ -1,6 +1,6 @@
 package com.example.onehourproject
 
-import com.example.onehourproject.book.BookRequest
+import com.example.onehourproject.book.dto.BookRequest
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.Validation
 import jakarta.validation.Validator

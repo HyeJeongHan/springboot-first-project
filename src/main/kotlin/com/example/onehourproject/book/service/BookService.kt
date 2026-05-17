@@ -1,6 +1,6 @@
 package com.example.onehourproject.book.service
 
-import com.example.onehourproject.book.BookRequest
+import com.example.onehourproject.book.dto.BookRequest
 import com.example.onehourproject.book.entitis.Book
 import com.example.onehourproject.book.exception.NotFoundException
 import com.example.onehourproject.book.repositories.BookRepository
