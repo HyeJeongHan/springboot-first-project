@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service
 class BookService(private val bookRepository: BookRepository) {
     private val books = mutableListOf<Book>()
 
-    fun createBook(book: Book): Book {
-        book.id = (books.size + 1).toLong()
-        books.add(book)
-        return book
+    fun createBook(bookRequest: BookRequest): Book {
+        return bookRepository.save(Book(
+            title = bookRequest.title,
+            author = bookRequest.author,
+            publishedDate = bookRequest.publishedDate
+        ))
     }
 
     fun getBooks(): List<Book> = books

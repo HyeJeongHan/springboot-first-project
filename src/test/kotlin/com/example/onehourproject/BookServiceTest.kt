@@ -2,6 +2,7 @@ package com.example.onehourproject
 
 import com.example.onehourproject.book.Book
 import com.example.onehourproject.book.BookRepository
+import com.example.onehourproject.book.BookRequest
 import com.example.onehourproject.book.BookService
 import com.example.onehourproject.book.exception.NotFoundException
 import org.assertj.core.api.Assertions.assertThat
@@ -9,6 +10,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
+import java.time.LocalDate
 
 class BookServiceTest {
     private lateinit var bookService: BookService
@@ -21,9 +23,8 @@ class BookServiceTest {
 
     @Test
     fun 책을_생성한다() {
-        val book = Book(title = "테스트 책")
-
-        val saved = bookService.createBook(book)
+        val bookRequest = BookRequest(title = "테스트 책", author = "hong", LocalDate.of(2000, 3, 4))
+        val saved = bookService.createBook(bookRequest)
 
         assertThat(saved.id).isNotNull()
         assertThat(saved.title).isEqualTo("테스트 책")
@@ -32,7 +33,8 @@ class BookServiceTest {
 
     @Test
     fun 책을_수정한다() {
-        bookService.createBook(Book(title = "테스트 책"))
+        val bookRequest = BookRequest(title = "테스트 책", author = "hong", LocalDate.of(2000, 3, 4))
+        bookService.createBook(bookRequest)
 
         val updated = bookService.updateBook(1L, Book(title = "수정된 책"))
 
@@ -41,7 +43,8 @@ class BookServiceTest {
 
     @Test
     fun 책을_삭제한다() {
-        bookService.createBook(Book(title = "삭제할 책"))
+        val bookRequest = BookRequest(title = "삭제할 책", author = "hong", LocalDate.of(2000, 3, 4))
+        bookService.createBook(bookRequest)
 
         val deleted = bookService.deleteBook(1L)
 
