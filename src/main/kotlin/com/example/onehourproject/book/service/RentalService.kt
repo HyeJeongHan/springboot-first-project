@@ -1,6 +1,7 @@
 package com.example.onehourproject.book.service
 
 import com.example.onehourproject.book.dto.RentalRequest
+import com.example.onehourproject.book.dto.RentalResponse
 import com.example.onehourproject.book.entitis.Rental
 import com.example.onehourproject.book.exception.AlreadyExistsException
 import com.example.onehourproject.book.exception.NotFoundException
@@ -18,7 +19,7 @@ class RentalService(
     private val rentalRepository: RentalRepository,
 ) {
     @Transactional
-    fun rentBook(request: RentalRequest) {
+    fun rentBook(request: RentalRequest): RentalResponse {
         val book = bookRepository.findById(request.bookId)
             .orElseThrow { NotFoundException("해당하는 책이 없습니다.") }
         val member = membersRepository.findById(request.memberId)
@@ -27,7 +28,8 @@ class RentalService(
         if (rentalRepository.existsByBookAndReturnDateIsNull(book))
             throw AlreadyExistsException("이미 대여 중입니다.")
 
-        rentalRepository.save(Rental(members = member, book = book))
+        val rental = rentalRepository.save(Rental(members = member, book = book))
+        return RentalResponse(rental.id, book.title, member.name, rental.returnDate)
     }
 
     @Transactional

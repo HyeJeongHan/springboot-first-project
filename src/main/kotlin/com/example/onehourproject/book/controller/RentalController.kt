@@ -1,7 +1,9 @@
 package com.example.onehourproject.book.controller
 
 import com.example.onehourproject.book.dto.RentalRequest
+import com.example.onehourproject.book.dto.RentalResponse
 import com.example.onehourproject.book.service.RentalService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController
 class RentalController(private val rentalService: RentalService) {
 
     @PostMapping
-    fun rental(@RequestBody rentalRequest: RentalRequest): ResponseEntity<Void> {
-        rentalService.rentBook(rentalRequest)
-        return ResponseEntity.noContent().build()
+    fun rental(@RequestBody rentalRequest: RentalRequest): ResponseEntity<RentalResponse> {
+        val response = rentalService.rentBook(rentalRequest)
+        return ResponseEntity.status(HttpStatus.CREATED).body(response)
     }
 
     @PatchMapping("/{rentId}/return")
