@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/books")
 class BookController(private val bookService: BookService) {
 
+    @GetMapping("/{id}")
+    fun getBookById(@PathVariable id: Long): ResponseEntity<Book> {
+        val book = bookService.getBookById(id)
+        return ResponseEntity.ok(book)
+    }
+
     @GetMapping
     fun getBooks(@RequestParam(required = false) title: String?, @RequestParam(required = false) author: String?, pageable: Pageable): ResponseEntity<Page<Book>> {
         val books: Page<Book> = bookService.getBooks(title, author, pageable)

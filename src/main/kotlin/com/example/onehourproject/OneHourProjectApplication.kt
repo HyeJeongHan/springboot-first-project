@@ -5,12 +5,14 @@ import com.example.onehourproject.book.repositories.BookRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.data.domain.PageRequest
 import java.time.LocalDate
 import kotlin.collections.forEach
 
 @SpringBootApplication
+@EnableCaching
 class OneHourProjectApplication {
 
     @Bean
