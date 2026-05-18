@@ -34,7 +34,7 @@ class RentalService(
 
     @Transactional
     fun returnBook(rentId: Long) {
-        val rental = rentalRepository.findByIdAndReturnedDateIsNull(rentId)
+        val rental = rentalRepository.findByIdAndReturnDateIsNull(rentId)
             .orElseThrow { NotFoundException("대여중인 책이 없습니다.") }
         rental.returnDate = LocalDate.now()
     }

@@ -47,7 +47,7 @@ class RentalServiceMockingTest {
         `when`(bookRepository.findById(1L)).thenReturn(Optional.of(book))
         `when`(membersRepository.findById(1L)).thenReturn(Optional.of(member))
         `when`(rentalRepository.existsByBookAndReturnDateIsNull(book)).thenReturn(false)
-//        `when`(rentalRepository.findByIdAndReturnedDateIsNull(1L)).thenReturn(Optional.empty())
+//        `when`(rentalRepository.findByIdAndReturnDateIsNull(1L)).thenReturn(Optional.empty())
 
         //when
         rentalService.rentBook(RentalRequest(1L, 1L))
@@ -85,7 +85,7 @@ class RentalServiceMockingTest {
         val member = Members(name = "제로코드")
         val rental = Rental(members = member, book = book)
 
-        `when`(rentalRepository.findByIdAndReturnedDateIsNull(1L)).thenReturn(Optional.of(rental))
+        `when`(rentalRepository.findByIdAndReturnDateIsNull(1L)).thenReturn(Optional.of(rental))
 
         rentalService.returnBook(1L)
 

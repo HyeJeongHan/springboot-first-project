@@ -7,5 +7,5 @@ import java.util.Optional
 
 interface RentalRepository : JpaRepository<Rental, Long> {
     fun existsByBookAndReturnDateIsNull(book: Book): Boolean
-    fun findByIdAndReturnedDateIsNull(bookId: Long): Optional<Rental>
+    fun findByIdAndReturnDateIsNull(bookId: Long): Optional<Rental>
 }
