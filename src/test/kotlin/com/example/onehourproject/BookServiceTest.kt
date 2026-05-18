@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
+import org.springframework.data.domain.PageRequest
 import java.time.LocalDate
 
 class BookServiceTest {
@@ -28,7 +29,7 @@ class BookServiceTest {
 
         assertThat(saved.id).isNotNull()
         assertThat(saved.title).isEqualTo("테스트 책")
-        assertThat(bookService.getBooks()).hasSize(1)
+        assertThat(bookService.getBooks(null, null, PageRequest.of(0, 10))).hasSize(1)
     }
 
     @Test
@@ -49,7 +50,7 @@ class BookServiceTest {
         val deleted = bookService.deleteBook(1L)
 
         assertThat(deleted).isTrue()
-        assertThat(bookService.getBooks()).isEmpty()
+        assertThat(bookService.getBooks(null, null, PageRequest.of(0, 10))).isEmpty()
     }
 
     @Test

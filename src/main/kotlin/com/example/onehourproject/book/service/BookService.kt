@@ -4,6 +4,8 @@ import com.example.onehourproject.book.dto.BookRequest
 import com.example.onehourproject.book.entitis.Book
 import com.example.onehourproject.book.exception.NotFoundException
 import com.example.onehourproject.book.repositories.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,7 +19,17 @@ class BookService(private val bookRepository: BookRepository) {
         ))
     }
 
-    fun getBooks(): List<Book> = bookRepository.findAll()
+    fun getBooks(title: String?, author: String?, pageable: Pageable): Page<Book> {
+        return if (title != null && author != null) {
+            bookRepository.findByTitleAndAuthor(title, author, pageable)
+        } else if (title != null) {
+            bookRepository.findByTitle(title, pageable)
+        } else if (author != null) {
+            bookRepository.findByAuthor(author, pageable)
+        }else {
+            bookRepository.findAll(pageable)
+        }
+    }
 
     fun updateBook(id: Long, updatedBook: Book): Book? {
         val book = bookRepository.findById(id).orElse(null) ?: return null

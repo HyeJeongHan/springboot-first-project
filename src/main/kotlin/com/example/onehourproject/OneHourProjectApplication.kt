@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.data.domain.PageRequest
 import java.time.LocalDate
 import kotlin.collections.forEach
 
@@ -30,7 +31,7 @@ class OneHourProjectApplication {
         bookRepository.save(
             Book(
                 title = "스프링 고급",
-                author = "han",
+                author = "hong",
                 publishedDate = LocalDate.of(2025, 7, 11))
         )
         println("[전체조회]")
@@ -38,7 +39,7 @@ class OneHourProjectApplication {
             println(book.title)
         }
         println("[작가로 조회]")
-        bookRepository.findByAuthor("hong").forEach { book ->
+        bookRepository.findByAuthor("hong", PageRequest.of(0, 10)).forEach { book ->
             println("${book.title} / ${book.author} / ${book.publishedDate}")
         }
         println("[작가와 출판일로 조회]")
