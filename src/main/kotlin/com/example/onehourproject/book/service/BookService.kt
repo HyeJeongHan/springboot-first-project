@@ -21,12 +21,12 @@ class BookService(private val bookRepository: BookRepository) {
 
     fun getBooks(title: String?, author: String?, pageable: Pageable): Page<Book> {
         return if (title != null && author != null) {
-            bookRepository.findByTitleAndAuthor(title, author, pageable)
+            bookRepository.findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCase(title, author, pageable)
         } else if (title != null) {
-            bookRepository.findByTitle(title, pageable)
+            bookRepository.findByTitleContainingIgnoreCase(title, pageable)
         } else if (author != null) {
-            bookRepository.findByAuthor(author, pageable)
-        }else {
+            bookRepository.findByAuthorContainingIgnoreCase(author, pageable)
+        } else {
             bookRepository.findAll(pageable)
         }
     }

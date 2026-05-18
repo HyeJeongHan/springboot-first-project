@@ -39,7 +39,7 @@ class OneHourProjectApplication {
             println(book.title)
         }
         println("[작가로 조회]")
-        bookRepository.findByAuthor("hong", PageRequest.of(0, 10)).forEach { book ->
+        bookRepository.findByAuthorContainingIgnoreCase("hong", PageRequest.of(0, 10)).forEach { book ->
             println("${book.title} / ${book.author} / ${book.publishedDate}")
         }
         println("[작가와 출판일로 조회]")
