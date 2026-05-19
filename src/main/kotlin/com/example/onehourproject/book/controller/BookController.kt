@@ -3,6 +3,10 @@ package com.example.onehourproject.book.controller
 import com.example.onehourproject.book.dto.BookRequest
 import com.example.onehourproject.book.entitis.Book
 import com.example.onehourproject.book.service.BookService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -34,6 +38,11 @@ class BookController(private val bookService: BookService) {
         return ResponseEntity.ok(books)
     }
 
+    @Operation(responses = [
+        ApiResponse(responseCode = "201", description = "등록 성공", content = [Content(schema =
+            Schema(implementation = Book::class))]),
+        ApiResponse(responseCode = "400", description = "잘못된 요청")
+    ])
     @PostMapping
     fun createBook(@RequestBody @Valid bookRequest: BookRequest): ResponseEntity<Book> =
         ResponseEntity.status(HttpStatus.CREATED).body(bookService.createBook(bookRequest))
