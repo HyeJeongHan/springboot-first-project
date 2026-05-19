@@ -1,5 +1,6 @@
 package com.example.onehourproject.book.service
 
+import com.example.onehourproject.book.dto.RentalDto
 import com.example.onehourproject.book.dto.RentalRequest
 import com.example.onehourproject.book.dto.RentalResponse
 import com.example.onehourproject.book.entitis.Rental
@@ -8,6 +9,8 @@ import com.example.onehourproject.book.exception.NotFoundException
 import com.example.onehourproject.book.repositories.BookRepository
 import com.example.onehourproject.book.repositories.MembersRepository
 import com.example.onehourproject.book.repositories.RentalRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -37,5 +40,12 @@ class RentalService(
         val rental = rentalRepository.findByIdAndReturnDateIsNull(rentId)
             .orElseThrow { NotFoundException("대여중인 책이 없습니다.") }
         rental.returnDate = LocalDate.now()
+    }
+
+    fun getRentals(pageable: Pageable): Page<RentalDto> {
+        return rentalRepository.findAll(pageable).map { r -> RentalDto(
+            r?.id ?: 0, r.book?.title, r.members?.name,
+            r.rentedDate, r?.returnDate
+        ) }
     }
 }

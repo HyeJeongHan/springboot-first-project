@@ -27,6 +27,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.mariadb.jdbc:mariadb-java-client")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("net.datafaker:datafaker:2.4.3")
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
